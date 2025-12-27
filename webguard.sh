@@ -29,10 +29,21 @@ case "$1" in
     tail -n 20 "$STATS"
     ;;
   whitelist)
-    [[ "$2" == "add" ]] && echo "$3" >> "$WHITELIST"
-    [[ "$2" == "list" ]] && cat "$WHITELIST"
-    ;;
-  *)
-    echo "Usage: webguard {run|status|stats|whitelist}"
-    ;;
+  if [[ "$EUID" -ne 0 ]]; then
+    echo "This action requires root. Try: sudo webguard whitelist $2 $3"
+    exit 1
+  fi
+
+  case "$2" in
+    add)
+      echo "$3" >> "$WHITELIST"
+      ;;
+    list)
+      cat "$WHITELIST"
+      ;;
+    *)
+      echo "Usage: webguard whitelist {add|list} [IP]"
+      ;;
+  esac
+  ;;
 esac
