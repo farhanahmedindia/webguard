@@ -37,7 +37,10 @@ See the "Runtime Layout" section for installed paths.
 Lightweight, offline-first web traffic defender.
 
 ## Install
-curl -fsSL https://raw.githubusercontent.com/<you>/webguard/main/install.sh | sudo bash
+git clone https://github.com/farhanahmedindia/webguard.git
+cd webguard
+chmod +x install.sh
+sudo ./install.sh
 
 ## Status
 webguard status
