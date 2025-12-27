@@ -3,9 +3,13 @@ Lightweight, offline-first, behavior-based web traffic defender for Apache/Nginx
 
 # Core Design Summary
 systemd timer (every 1 min)
-        ↓
+
+ ↓
+        
 webguard.sh (CLI entry)
-        ↓
+  
+↓
+        
 detect logs → parse → score → act → log → stats
 
 # Repository Structure
@@ -19,6 +23,13 @@ detect logs → parse → score → act → log → stats
 
 
 
+## Project Structure
+
+- The GitHub repository contains source files and installer scripts.
+- After installation, webguard follows standard Linux filesystem layout.
+- Users do not need to interact with source files after installation.
+
+See the "Runtime Layout" section for installed paths.
 
 # How to Install
 # webguard
