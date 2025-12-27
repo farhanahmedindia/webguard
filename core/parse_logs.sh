@@ -1,3 +1,7 @@
+# Copyright 2025 Farhan Ahmed
+# Licensed under the Apache License, Version 2.0
+# See LICENSE file for details
+
 NOW=$(date +"%d/%b/%Y:%H:%M")
 TMP="/tmp/webguard_hits.tmp"
 > "$TMP"
