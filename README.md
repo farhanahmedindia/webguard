@@ -32,6 +32,23 @@ detect logs → parse → score → act → log → stats
 See the "Runtime Layout" section for installed paths.
 
 # How to Install
+
+## Dependencies
+
+webguard installs and requires the following system packages:
+
+- bash
+- awk, grep, sort, uniq
+- systemd
+- ipset
+- whois
+- jq
+- curl
+- mailutils or msmtp
+
+All dependencies are installed automatically during installation.
+
+
 # webguard
 
 Lightweight, offline-first web traffic defender.
