@@ -55,8 +55,11 @@ Lightweight, offline-first web traffic defender.
 
 ## Install
 git clone https://github.com/farhanahmedindia/webguard.git
+
 cd webguard
+
 chmod +x install.sh
+
 sudo ./install.sh
 
 ## Status
