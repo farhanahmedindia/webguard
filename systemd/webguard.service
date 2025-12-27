@@ -1,0 +1,6 @@
+[Unit]
+Description=webguard web defender
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/webguard run
