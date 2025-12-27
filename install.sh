@@ -7,7 +7,73 @@ set -e
 
 echo "[+] Checking and installing dependencies..."
 
-DEPS=(
+# -----------------------------
+# Package mappings
+# -----------------------------
+
+# Debian / Ubuntu packages
+APT_DEPS=(
+  bash
+  coreutils        # provides sort, uniq
+  grep
+  mawk             # provides awk
+  ipset
+  whois
+  jq
+  curl
+  mailutils        # provides mail
+  msmtp
+)
+
+# RHEL / CentOS / Rocky / Alma packages
+DNF_DEPS=(
+  bash
+  coreutils        # provides sort, uniq
+  grep
+  gawk             # provides awk
+  ipset
+  whois
+  jq
+  curl
+  mailx            # provides mail
+  msmtp
+)
+
+install_deps_apt() {
+  apt update
+  apt install -y "${APT_DEPS[@]}"
+}
+
+install_deps_dnf() {
+  dnf install -y "${DNF_DEPS[@]}"
+}
+
+install_deps_yum() {
+  yum install -y "${DNF_DEPS[@]}"
+}
+
+# -----------------------------
+# Detect package manager
+# -----------------------------
+if command -v apt >/dev/null 2>&1; then
+  install_deps_apt
+elif command -v dnf >/dev/null 2>&1; then
+  install_deps_dnf
+elif command -v yum >/dev/null 2>&1; then
+  install_deps_yum
+else
+  echo "[!] Unsupported package manager."
+  echo "Please install the following commands manually:"
+  echo "  bash awk grep sort uniq ipset whois jq curl mail/msmtp"
+  exit 1
+fi
+
+# -----------------------------
+# Verify dependencies (command-level check)
+# -----------------------------
+echo "[+] Verifying installed dependencies..."
+
+REQUIRED_CMDS=(
   bash
   awk
   grep
@@ -19,46 +85,20 @@ DEPS=(
   curl
 )
 
-MAIL_DEPS=(mailutils msmtp)
+for cmd in "${REQUIRED_CMDS[@]}"; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "[!] Dependency verification failed: $cmd"
+    exit 1
+  fi
+done
 
-install_deps_apt() {
-  apt update
-  apt install -y "${DEPS[@]}" "${MAIL_DEPS[@]}"
-}
-
-install_deps_dnf() {
-  dnf install -y "${DEPS[@]}" mailx msmtp
-}
-
-install_deps_yum() {
-  yum install -y "${DEPS[@]}" mailx msmtp
-}
-
-if command -v apt >/dev/null 2>&1; then
-  install_deps_apt
-elif command -v dnf >/dev/null 2>&1; then
-  install_deps_dnf
-elif command -v yum >/dev/null 2>&1; then
-  install_deps_yum
-else
-  echo "[!] Unsupported package manager."
-  echo "Please install dependencies manually:"
-  echo "  ${DEPS[*]} mailutils/msmtp"
+# Verify mail capability
+if ! command -v mail >/dev/null 2>&1 && ! command -v msmtp >/dev/null 2>&1; then
+  echo "[!] Neither mail nor msmtp found"
   exit 1
 fi
 
-echo "[✓] Dependencies installed"
-
-echo "[+] Verifying dependencies..."
-
-for d in "${DEPS[@]}" ipset whois jq curl; do
-  command -v "$d" >/dev/null 2>&1 || {
-    echo "[!] Dependency missing after install: $d"
-    exit 1
-  }
-done
-
-echo "[✓] All dependencies verified"
+echo "[✓] All dependencies installed and verified"
 
 echo "[+] Installing webguard..."
 
