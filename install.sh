@@ -8,23 +8,41 @@ BIN="/usr/local/bin/webguard"
 ETC="/etc/webguard"
 LOG="/var/log/webguard"
 LIB="/var/lib/webguard"
+SYSTEMD="/etc/systemd/system"
 
-mkdir -p $ETC $LOG $LIB
+# Create directories
+mkdir -p "$ETC" "$LOG" "$LIB"
 
-cp webguard.sh $BIN
-chmod +x $BIN
+# Install main CLI
+install -m 755 webguard.sh "$BIN"
 
-cp etc/webguard.conf.example $ETC/webguard.conf
-touch $ETC/ignored_ips.txt
+# Install core modules (INCLUDING utils.sh)
+mkdir -p "$LIB/core"
+cp core/*.sh "$LIB/core/"
+chmod 755 "$LIB/core/"*.sh
 
-cp -r core $LIB/
+# Install default config (do not overwrite existing)
+if [[ ! -f "$ETC/webguard.conf" ]]; then
+  cp etc/webguard.conf.example "$ETC/webguard.conf"
+fi
 
-cp systemd/webguard.service /etc/systemd/system/
-cp systemd/webguard.timer /etc/systemd/system/
+# Create whitelist file if missing
+touch "$ETC/ignored_ips.txt"
+chmod 640 "$ETC/ignored_ips.txt"
 
+# Install systemd units
+cp systemd/webguard.service "$SYSTEMD/"
+cp systemd/webguard.timer "$SYSTEMD/"
+
+# Reload systemd and enable timer
 systemctl daemon-reload
 systemctl enable webguard.timer
 systemctl start webguard.timer
 
-echo "[✓] webguard installed"
-echo "Run: webguard status"
+echo
+echo "[✓] webguard installed successfully"
+echo
+echo "Useful commands:"
+echo "  webguard status"
+echo "  webguard stats"
+echo "  webguard whitelist list"
