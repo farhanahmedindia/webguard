@@ -44,7 +44,14 @@ webguard installs and requires the following system packages:
 - whois
 - jq
 - curl
-- mailutils or msmtp
+- msmtp
+
+### Email alerts
+
+webguard uses `msmtp` for email alerts.
+It does not install or manage a mail server.
+
+Users can configure SMTP settings manually if alerts are needed.
 
 All dependencies are installed automatically during installation.
 
