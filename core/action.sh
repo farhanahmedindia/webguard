@@ -17,3 +17,14 @@ for IP in "${!SCORE[@]}"; do
 done
 
 echo "$(date) seen=$SEEN blocked=$BLOCKED" >> "$STATS"
+
+# ----------------------------
+# Stats logging
+# ----------------------------
+
+NOW=$(date '+%Y-%m-%d %H:%M:%S')
+
+SEEN_IPS=$(awk '{print $1}' "$TMP_HITS" | sort -u | wc -l)
+BLOCKED_IPS=$(ipset list temp_ban 2>/dev/null | grep -c '^[0-9]' || echo 0)
+
+echo "$NOW seen=$SEEN_IPS blocked=$BLOCKED_IPS" >> "$STATS"
