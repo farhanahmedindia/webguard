@@ -5,6 +5,61 @@
 
 set -e
 
+echo "[+] Checking and installing dependencies..."
+
+DEPS=(
+  bash
+  awk
+  grep
+  sort
+  uniq
+  ipset
+  whois
+  jq
+  curl
+)
+
+MAIL_DEPS=(mailutils msmtp)
+
+install_deps_apt() {
+  apt update
+  apt install -y "${DEPS[@]}" "${MAIL_DEPS[@]}"
+}
+
+install_deps_dnf() {
+  dnf install -y "${DEPS[@]}" mailx msmtp
+}
+
+install_deps_yum() {
+  yum install -y "${DEPS[@]}" mailx msmtp
+}
+
+if command -v apt >/dev/null 2>&1; then
+  install_deps_apt
+elif command -v dnf >/dev/null 2>&1; then
+  install_deps_dnf
+elif command -v yum >/dev/null 2>&1; then
+  install_deps_yum
+else
+  echo "[!] Unsupported package manager."
+  echo "Please install dependencies manually:"
+  echo "  ${DEPS[*]} mailutils/msmtp"
+  exit 1
+fi
+
+echo "[✓] Dependencies installed"
+
+echo "[+] Verifying dependencies..."
+
+for d in "${DEPS[@]}" ipset whois jq curl; do
+  command -v "$d" >/dev/null 2>&1 || {
+    echo "[!] Dependency missing after install: $d"
+    exit 1
+  }
+done
+
+echo "[✓] All dependencies verified"
+
 echo "[+] Installing webguard..."
 
 # Paths
