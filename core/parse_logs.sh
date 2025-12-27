@@ -7,7 +7,9 @@ TMP="/tmp/webguard_hits.tmp"
 > "$TMP"
 
 NOW_EPOCH=$(date +%s)
-WINDOW=120   # seconds (2 minutes)
+
+# Use config value, fallback safely
+WINDOW=${WINDOW:-120}
 
 for f in "$LOG_DIR"/*access.log; do
   awk -v now="$NOW_EPOCH" -v win="$WINDOW" '
