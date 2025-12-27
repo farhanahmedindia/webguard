@@ -15,7 +15,8 @@ detect logs → parse → score → act → log → stats
 
 
 # Runtime locations (after installation)
-<img width="491" height="320" alt="image" src="https://github.com/user-attachments/assets/7511ab51-e384-490b-b330-7d160d2edff8" />
+<img width="590" height="572" alt="image" src="https://github.com/user-attachments/assets/d46e9468-975c-413e-8f32-2ce73211d873" />
+
 
 
 
