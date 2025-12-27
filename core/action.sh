@@ -24,7 +24,15 @@ echo "$(date) seen=$SEEN blocked=$BLOCKED" >> "$STATS"
 
 NOW=$(date '+%Y-%m-%d %H:%M:%S')
 
-SEEN_IPS=$(awk '{print $1}' "$TMP_HITS" | sort -u | wc -l)
+# TMP_HITS must contain parsed hits in format: COUNT IP
+# Example line: 269 223.188.82.230
+if [[ -f "$TMP_HITS" ]]; then
+  SEEN_IPS=$(awk '{print $2}' "$TMP_HITS" | sort -u | wc -l)
+else
+  SEEN_IPS=0
+fi
+
+# Count blocked IPs (safe even if ipset doesn't exist)
 BLOCKED_IPS=$(ipset list temp_ban 2>/dev/null | grep -c '^[0-9]' || echo 0)
 
-echo "$NOW seen=$SEEN_IPS blocked=$BLOCKED_IPS" >> "$STATS"
+echo "$NOW seen=$SEEN_IPS blocked=$BLOCKED_IPS" >> /var/log/webguard/stats.log
