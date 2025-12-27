@@ -1,3 +1,7 @@
+# Copyright 2025 Farhan Ahmed
+# Licensed under the Apache License, Version 2.0
+# See LICENSE file for details
+
 ipset create temp_ban hash:ip timeout $BAN_TIME -exist
 
 BLOCKED=0
