@@ -21,7 +21,6 @@ APT_DEPS=(
   whois
   jq
   curl
-  mailutils        # provides mail
   msmtp
 )
 
@@ -35,7 +34,6 @@ DNF_DEPS=(
   whois
   jq
   curl
-  mailx            # provides mail
   msmtp
 )
 
