@@ -136,6 +136,11 @@ systemctl daemon-reload
 systemctl enable webguard.timer
 systemctl start webguard.timer
 
+mkdir -p /var/log/webguard
+touch /var/log/webguard/webguard.log /var/log/webguard/stats.log
+chmod 640 /var/log/webguard/*.log
+
+
 echo
 echo "[✓] webguard installed successfully"
 echo
