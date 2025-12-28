@@ -5,11 +5,11 @@
 
 set -o pipefail
 
-CONF="/etc/webguard/webguard.conf"
-CORE="/var/lib/webguard/core"
-LOGFILE="/var/log/webguard/webguard.log"
-STATS="/var/log/webguard/stats.log"
-WHITELIST="/etc/webguard/ignored_ips.txt"
+CONF="/etc/logsentinel/logsentinel.conf"
+CORE="/var/lib/logsentinel/core"
+LOGFILE="/var/log/logsentinel/logsentinel.log"
+STATS="/var/log/logsentinel/stats.log"
+WHITELIST="/etc/logsentinel/ignored_ips.txt"
 
 source "$CONF"
 source "$CORE/utils.sh"
@@ -22,7 +22,7 @@ case "$1" in
     source "$CORE/action.sh"
     ;;
   status)
-    echo "webguard ACTIVE"
+    echo "logsentinel ACTIVE"
     ipset list temp_ban 2>/dev/null | grep -c "^[0-9]"
     ;;
   stats)
@@ -30,7 +30,7 @@ case "$1" in
     ;;
   whitelist)
   if [[ "$EUID" -ne 0 ]]; then
-    echo "This action requires root. Try: sudo webguard whitelist $2 $3"
+    echo "This action requires root. Try: sudo logsentinel whitelist $2 $3"
     exit 1
   fi
 
@@ -42,7 +42,7 @@ case "$1" in
       cat "$WHITELIST"
       ;;
     *)
-      echo "Usage: webguard whitelist {add|list} [IP]"
+      echo "Usage: logsentinel whitelist {add|list} [IP]"
       ;;
   esac
   ;;
