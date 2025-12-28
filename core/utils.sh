@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE="/var/log/webguard/webguard.log"
+LOG_FILE="/var/log/logsentinel/logsentinel.log"
 
 # Timestamp helper
 timestamp() {
@@ -34,7 +34,7 @@ is_private_ip() {
 # Check whitelist
 is_whitelisted() {
   local ip="$1"
-  grep -qx "$ip" /etc/webguard/ignored_ips.txt 2>/dev/null
+  grep -qx "$ip" /etc/logsentinel/ignored_ips.txt 2>/dev/null
 }
 
 # Minimal IP validation
