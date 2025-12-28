@@ -1,5 +1,5 @@
 [Unit]
-Description=Run webguard every minute
+Description=Run logsentinel every minute
 
 [Timer]
 OnCalendar=*:0/1
