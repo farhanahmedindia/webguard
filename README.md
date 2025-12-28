@@ -86,21 +86,23 @@ LogSentinel supports Apache/Nginx-style access logs where:
 No daemon runs continuously.
 No state is permanently stored.
 
-====
 # Directory Layout:
 <img width="412" height="164" alt="image" src="https://github.com/user-attachments/assets/5b854342-c1a1-4171-bb49-b4f38a3d364d" />
 
 # Configuration
 Edit:
 ```/etc/logsentinel/logsentinel.conf```
+
 <img width="404" height="138" alt="image" src="https://github.com/user-attachments/assets/ba135600-d580-4c6b-926f-9ddf31391ae0" />
 
 ### Custom log paths (Nginx, custom apps)
 ``` LOG_PATHS="/var/log/nginx/access.log" ```
 
 ### Multiple Logs:
-```LOG_PATHS="/var/log/nginx/*.log /srv/apps/*/access.log"```
+```
 LOG_PATHS="/var/log/nginx/*.log /srv/apps/*/access.log"
+LOG_PATHS="/var/log/nginx/*.log /srv/apps/*/access.log"
+```
 
 # How to Install
 
@@ -206,9 +208,9 @@ This design minimizes lockout risk.
 ## IP Intelligence (Optional)
 
 LogSentinel provides a manual IP intelligence command for investigation:
-
+```
 logsentinel intel <IP>
-
+```
 This command shows contextual information such as:
 - Country
 - Network / ISP
