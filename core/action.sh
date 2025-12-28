@@ -35,4 +35,4 @@ fi
 # Count blocked IPs (safe even if ipset doesn't exist)
 BLOCKED_IPS=$(ipset list temp_ban 2>/dev/null | grep -c '^[0-9]' || echo 0)
 
-echo "$NOW seen=$SEEN_IPS blocked=$BLOCKED_IPS" >> /var/log/webguard/stats.log
+echo "$NOW seen=$SEEN_IPS blocked=$BLOCKED_IPS" >> /var/log/logsentinel/stats.log
