@@ -41,6 +41,8 @@ Commands:
   blocked count               Count blocked IPs
   blocked check <IP>          Check if IP is blocked
   blocked remove <IP>         Unblock IP immediately
+
+  intel <IP>                  Show IP intelligence (whois-based)
 EOF
 }
 
