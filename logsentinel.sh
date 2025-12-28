@@ -55,6 +55,21 @@ case "$1" in
     source "$CORE/action.sh"
     ;;
 
+  intel)
+  [[ -z "$2" ]] && {
+    echo "Usage: logsentinel intel <IP>"
+    exit 1
+  }
+
+  if [[ ! "$2" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "Invalid IP address"
+    exit 1
+  fi
+
+  source "$CORE/intel.sh"
+  intel_lookup "$2"
+  ;;
+
   status)
     echo "logsentinel ACTIVE"
     ipset list temp_ban 2>/dev/null | grep -c '^[0-9]'
