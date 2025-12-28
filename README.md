@@ -203,6 +203,23 @@ Reboot clears all blocks
 This design minimizes lockout risk.
 
 
+## IP Intelligence (Optional)
+
+LogSentinel provides a manual IP intelligence command for investigation:
+
+logsentinel intel <IP>
+
+This command shows contextual information such as:
+- Country
+- Network / ISP
+- Organization (when available)
+
+Notes:
+- This feature is informational only
+- It does not affect blocking decisions
+- No external APIs or keys are required
+
+
 
 # Performance Characteristics
 
