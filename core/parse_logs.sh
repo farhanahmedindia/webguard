@@ -3,7 +3,7 @@
 # Licensed under the Apache License, Version 2.0
 # See LICENSE file for details
 
-TMP="/tmp/webguard_hits.tmp"
+TMP="/tmp/logsentinel_hits.tmp"
 > "$TMP"
 
 NOW_EPOCH=$(date +%s)
