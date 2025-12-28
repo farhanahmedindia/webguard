@@ -1,4 +1,31 @@
+# ===============================
+# logsentinel configuration
+# ===============================
+
+# Number of requests from a single IP within WINDOW seconds
+# required to trigger detection/blocking
 THRESHOLD=300
+
+# How long (in seconds) an IP stays blocked
 BAN_TIME=600
+
+# Mode of operation:
+#   block  → block abusive IPs
+#   detect → detect only (no blocking)
 MODE=block
+
+# Sliding time window in seconds
 WINDOW=120
+
+# --------------------------------
+# Log sources (optional)
+# --------------------------------
+# Space-separated glob patterns for access logs.
+# If empty, logsentinel will auto-detect Apache logs.
+#
+# Examples:
+# LOG_PATHS="/var/log/nginx/access.log"
+# LOG_PATHS="/srv/apps/*/access.log /var/log/nginx/*.log"
+# LOG_PATHS="/var/lib/docker/containers/*/*.log"
+#
+LOG_PATHS=""
