@@ -1,6 +1,6 @@
 [Unit]
-Description=webguard web defender
+Description=logsentinel web defender
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/webguard run
+ExecStart=/usr/local/bin/logsentinel run
