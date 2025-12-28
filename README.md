@@ -79,5 +79,24 @@ logsentinel stats
 logsentinel whitelist add 1.2.3.4
 logsentinel whitelist list
 
+
+## Using logsentinel with Nginx
+
+logsentinel supports Nginx access logs.
+
+Edit the configuration file:
+
+/etc/logsentinel/logsentinel.conf
+
+Set the log path:
+
+LOG_PATHS="/var/log/nginx/access.log"
+
+For multiple logs:
+
+LOG_PATHS="/var/log/nginx/*.log"
+
+Restart is not required — changes apply on next run.
+
 ## Uninstall
 sudo ./uninstall.sh
