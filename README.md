@@ -1,4 +1,4 @@
-# webguard
+# logsentinel
 Lightweight, offline-first, behavior-based web traffic defender for Apache/Nginx
 
 # Core Design Summary
@@ -6,7 +6,7 @@ systemd timer (every 1 min)
 
  ↓
         
-webguard.sh (CLI entry)
+logsentinel.sh (CLI entry)
   
 ↓
         
@@ -26,7 +26,7 @@ detect logs → parse → score → act → log → stats
 ## Project Structure
 
 - The GitHub repository contains source files and installer scripts.
-- After installation, webguard follows standard Linux filesystem layout.
+- After installation, logsentinel follows standard Linux filesystem layout.
 - Users do not need to interact with source files after installation.
 
 See the "Runtime Layout" section for installed paths.
@@ -35,7 +35,7 @@ See the "Runtime Layout" section for installed paths.
 
 ## Dependencies
 
-webguard installs and requires the following system packages:
+logsentinel installs and requires the following system packages:
 
 - bash
 - awk, grep, sort, uniq
@@ -48,7 +48,7 @@ webguard installs and requires the following system packages:
 
 ### Email alerts
 
-webguard uses `msmtp` for email alerts.
+logsentinel uses `msmtp` for email alerts.
 It does not install or manage a mail server.
 
 Users can configure SMTP settings manually if alerts are needed.
@@ -56,28 +56,28 @@ Users can configure SMTP settings manually if alerts are needed.
 All dependencies are installed automatically during installation.
 
 
-# webguard
+# logsentinel
 
 Lightweight, offline-first web traffic defender.
 
 ## Install
-git clone https://github.com/farhanahmedindia/webguard.git
+git clone https://github.com/farhanahmedindia/logsentinel.git
 
-cd webguard
+cd logsentinel
 
 chmod +x install.sh
 
 sudo ./install.sh
 
 ## Status
-webguard status
+logsentinel status
 
 ## Stats
-webguard stats
+logsentinel stats
 
 ## Whitelist
-webguard whitelist add 1.2.3.4
-webguard whitelist list
+logsentinel whitelist add 1.2.3.4
+logsentinel whitelist list
 
 ## Uninstall
 sudo ./uninstall.sh
